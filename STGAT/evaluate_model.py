@@ -112,7 +112,7 @@ def get_generator(checkpoint):
         noise_type=args.noise_type,
     )
     model.load_state_dict(checkpoint["state_dict"])
-    model.cuda()
+    # model.cuda()
     model.eval()
     return model
 
@@ -128,7 +128,7 @@ def evaluate(args, loader, generator):
     total_traj = 0
     with torch.no_grad():
         for batch in loader:
-            batch = [tensor.cuda() for tensor in batch]
+            batch = [tensor for tensor in batch]
             (
                 obs_traj,
                 pred_traj_gt,

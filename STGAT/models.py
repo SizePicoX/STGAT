@@ -6,9 +6,9 @@ import random
 
 def get_noise(shape, noise_type):
     if noise_type == "gaussian":
-        return torch.randn(*shape).cuda()
+        return torch.randn(*shape)
     elif noise_type == "uniform":
-        return torch.rand(*shape).sub_(0.5).mul_(2.0).cuda()
+        return torch.rand(*shape).sub_(0.5).mul_(2.0)
     raise ValueError('Unrecognized noise type "%s"' % noise_type)
 
 
@@ -82,8 +82,8 @@ class GAT(nn.Module):
             )
 
         self.norm_list = [
-            torch.nn.InstanceNorm1d(32).cuda(),
-            torch.nn.InstanceNorm1d(64).cuda(),
+            torch.nn.InstanceNorm1d(32),
+            torch.nn.InstanceNorm1d(64)
         ]
 
     def forward(self, x):
@@ -167,14 +167,14 @@ class TrajectoryGenerator(nn.Module):
 
     def init_hidden_traj_lstm(self, batch):
         return (
-            torch.randn(batch, self.traj_lstm_hidden_size).cuda(),
-            torch.randn(batch, self.traj_lstm_hidden_size).cuda(),
+            torch.randn(batch, self.traj_lstm_hidden_size),
+            torch.randn(batch, self.traj_lstm_hidden_size),
         )
 
     def init_hidden_graph_lstm(self, batch):
         return (
-            torch.randn(batch, self.graph_lstm_hidden_size).cuda(),
-            torch.randn(batch, self.graph_lstm_hidden_size).cuda(),
+            torch.randn(batch, self.graph_lstm_hidden_size),
+            torch.randn(batch, self.graph_lstm_hidden_size),
         )
 
     def add_noise(self, _input, seq_start_end):
@@ -256,7 +256,7 @@ class TrajectoryGenerator(nn.Module):
             pred_lstm_hidden = self.add_noise(
                 encoded_before_noise_hidden, seq_start_end
             )
-            pred_lstm_c_t = torch.zeros_like(pred_lstm_hidden).cuda()
+            pred_lstm_c_t = torch.zeros_like(pred_lstm_hidden)
             output = obs_traj_rel[self.obs_len-1]
             if self.training:
                 for i, input_t in enumerate(

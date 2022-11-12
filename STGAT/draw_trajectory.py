@@ -117,7 +117,7 @@ def get_generator(checkpoint):
         noise_type=args.noise_type,
     )
     model.load_state_dict(checkpoint["state_dict"])
-    model.cuda()
+    # model.cuda()
     model.eval()
     return model
 
@@ -135,7 +135,7 @@ def plot_trajectory(args, loader, generator):
     pic_cnt = 0
     with torch.no_grad():
         for batch in loader:
-            batch = [tensor.cuda() for tensor in batch]
+            batch = [tensor for tensor in batch]
             (
                 obs_traj,
                 pred_traj_gt,
@@ -149,7 +149,7 @@ def plot_trajectory(args, loader, generator):
             ground_truth_input.append(obs_traj)
             ground_truth_output.append(pred_traj_gt)
             model_output_traj = []
-            model_output_traj_best = torch.ones_like(pred_traj_gt).cuda()
+            model_output_traj_best = torch.ones_like(pred_traj_gt)
 
             for _ in range(args.num_samples):
                 pred_traj_fake_rel = generator(

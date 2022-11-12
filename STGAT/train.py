@@ -140,7 +140,7 @@ def main(args):
         noise_dim=args.noise_dim,
         noise_type=args.noise_type,
     )
-    model.cuda()
+    # model.cuda()
     optimizer = optim.Adam(
         [
             {"params": model.traj_lstm_model.parameters(), "lr": 1e-2},
@@ -205,7 +205,7 @@ def train(args, model, train_loader, optimizer, epoch, training_step, writer):
     )
     model.train()
     for batch_idx, batch in enumerate(train_loader):
-        batch = [tensor.cuda() for tensor in batch]
+        batch = [tensor for tensor in batch]
         (
             obs_traj,
             pred_traj_gt,
@@ -268,7 +268,7 @@ def validate(args, model, val_loader, epoch, writer):
     model.eval()
     with torch.no_grad():
         for i, batch in enumerate(val_loader):
-            batch = [tensor.cuda() for tensor in batch]
+            batch = [tensor for tensor in batch]
             (
                 obs_traj,
                 pred_traj_gt,
