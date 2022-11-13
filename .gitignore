@@ -6,3 +6,5 @@
 /STGAT/runs/
 /STGAT/checkpoint/
 /STGAT/*.log
+/STGAT/traj_fig/
+/STGAT/*.pth
