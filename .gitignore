@@ -8,3 +8,4 @@
 /STGAT/*.log
 /STGAT/traj_fig/
 /STGAT/*.pth
+/STGAT/*.tar
